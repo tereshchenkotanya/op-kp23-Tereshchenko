@@ -1,7 +1,7 @@
 ﻿using System;
 class Program
 {
-    static double Fuctorial(int a)
+    static double Fuctor(int a)
     {
         double factorial = 1;
 
@@ -12,7 +12,7 @@ class Program
         return factorial;
     }
 
-    static double Degree(int degree, double x_org)
+    static double Pow(int degree, double x_org)
     {
         double x = x_org;
 
@@ -40,10 +40,10 @@ class Program
     {
         //Calculate the trigonometric function sin(x)
         /*
-         * case 1 x = 0, accuracy = 5;
-         * case 2 x = 0.5, accuracy = 5;
-         * case 3 x = 0, accuracy = 10;
-         * case 4 x = 0.5, accuracy = 10;
+         * case 1 x = 0, precision = 1;
+         * case 2 x = 0.5, precision = 0,0000001;
+         * case 3 x = 0, precision = 0,0000001;
+         * case 4 x = 0.5, precision = 1;
         */
 
         double x;
@@ -68,11 +68,11 @@ class Program
             while (true)
             {
                 x_degree = 2 * n + 1;
-                double v1 = (double)Degree(n, -1);
-                double v2 = (double)Degree(x_degree, x);
-                double v3 = (double)Fuctorial(x_degree);
+                double sign = (double)Pow(n, -1);
+                double power = (double)Pow(x_degree, x);
+                double fuctorial = (double)Fuctor(x_degree);
 
-                t = v1 * v2 / v3;
+                t = sign * power / fuctorial;
                 sin_x += t;
                 n++;
 
@@ -83,6 +83,7 @@ class Program
             }
 
             Console.WriteLine("sin(x) = {0}", sin_x);
+
             Console.WriteLine("\nWould you like to try again? Write Y if yes and N if no:");
             restart = Convert.ToChar(Console.ReadLine()!);
 
@@ -103,10 +104,10 @@ class Program
             }
         }
         /*
-         * case 1 sin_x = 0;
-         * case 2 sin_x = 0,4794255386164159;
-         * case 3 sin_x = 0;
-         * case 4 sin_x = 0,479425538604203;
-        */
+          * case 1 sin_x = 0;
+          * case 2 sin_x = 0,479425538604203;
+          * case 3 sin_x = 0;
+          * case 4 sin_x = 0,5;
+         */
     }
 }
