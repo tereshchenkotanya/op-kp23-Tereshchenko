@@ -7,7 +7,7 @@ class Program
     public static void Main(string[] args)
     {
         //The max number of line
-        
+
         /*test cases:
          * case1: allNumbersFile: 296	719	360	1	448	546	100	676	125	250	968	71	802	212	251	
          * case2: allNumbersFile: 963	807	336	682	646	555	890	537	366	783	102	89	314	899	482	
@@ -23,12 +23,22 @@ class Program
 
         using (StreamWriter sw = File.CreateText(allNumbersFilePath))
         {
-
+            for (int i = 0; i < 15; i++)
+            {
+                int number = rand.Next(1000);
+                sw.Write(number + "\t");
+                if (number > maxNumber)
+                {
+                    maxNumber = number;
+                }
+            }
         }
 
         using (StreamWriter sw = File.CreateText(maxNumberFilePath))
         {
+            sw.WriteLine(maxNumber);
         }
+
         /*test cases:
         * case1: allNumbersFile: 296   719 360	1   448	546	100	676	125	250	968	71	802	212	251	
         *        maxNumberFile: 968
