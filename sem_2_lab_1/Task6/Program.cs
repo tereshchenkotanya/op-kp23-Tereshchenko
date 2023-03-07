@@ -12,6 +12,18 @@ class Program
 
         string[] lines = File.ReadAllLines(csvFilePath);
         
+        /*test cases:
+         * case1: John,Smith,87
+                  Emily,Jones,96
+                  Daniel,Lee,50
+         * case2: Ava,Johnson,94
+                  Michael,Miller,83
+                  Olivia,Davis,89
+         * case3: Ethan,Wilson,99
+                  Sophia,Garcia,98
+                  William,Anderson,86 
+         */
+
         // Create the binary file based on the CSV file
 
         using (BinaryWriter writer = new BinaryWriter(File.Open(binaryFilePath, FileMode.Create)))
@@ -37,12 +49,17 @@ class Program
         }
         if (count > 0)
         {
-            
+
         }
         else
         {
 
         }
+        /*test cases:
+         * case1:Number of students with score greater than 95:1 
+         * case2:Anyone has a great score
+         * case3:Number of students with score greater than 95:2 
+         */
     }
     static string[] Split(string line)
     {
