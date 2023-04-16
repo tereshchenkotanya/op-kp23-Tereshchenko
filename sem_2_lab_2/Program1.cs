@@ -78,6 +78,17 @@ class Program
     }
     static void Main()
     {
+        //tasr cases:
+        //input = 2
+        //case1: obj1: surname = Sidorova
+        //       salary = 12345
+        //       obj2: surname = Koneyv
+        //       salary = 56789
+        //case3: obj1: surname = Nikolaenko
+        //       salary = 67890
+        //       obj2: surname = Clymenko
+        //       salary: 34567
+
         bool validInput = false;
         int n = 0;
         string input;
@@ -95,6 +106,19 @@ class Program
         double salarySum = CalculateSalarySum(data);
         double taxesSum = CalculateTaxesSum(data);
         double issuedEarnіngsSum = CalculateIssuedEarningsSum(data);
+
+        //test cases:
+        //case1:          Salary     Taxes   Issued Earnings
+        //1) Sidorova:     12345   2407,28   9937,72
+        //2) Koneyv:     56789   11073,86   45715,14
+        //--------------------------------------------------
+        //Together: salary 69134   taxes 13481   issued earnongs 55653
+        
+        //case2:                 Salary     Taxes   Issued Earnings
+        //1) Nikolaenko:     67890   13238,55   54651,45
+        //2) Clymenko:     34567   6740,56   27826,44
+        //--------------------------------------------------
+        //Together: salary 102457   taxes 19980   issued earnongs 82477
     }
 }
 
