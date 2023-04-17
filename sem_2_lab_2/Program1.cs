@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 // Клас, що представляє відомість
-class Data
+class RecordSet
 {
     // Поля відомості
     private string surname;
@@ -11,7 +11,7 @@ class Data
     private double issuedEarnings;
     public const double taxRate = 0.195;
     // Конструктор для встановлення початкових значень полів
-    public Data(string name, double salary)
+    public RecordSet(string name, double salary)
     {
         this.surname = name;
         this.salary = salary;
@@ -55,7 +55,7 @@ class Data
 //// Головний клас програми
 class Program
 {
-    static double CalculateSalarySum(Data[] data)
+    static double CalculateSalarySum(RecordSet[] data)
     {
         double sum = 0;
         for (int i = 0; i < data.Length; i++)
@@ -66,7 +66,7 @@ class Program
     }
 
     // Метод для обчислення суми податків
-    static double CalculateTaxesSum(Data[] data)
+    static double CalculateTaxesSum(RecordSet[] data)
     {
         double sum = 0;
         for (int i = 0; i < data.Length; i++)
@@ -77,7 +77,7 @@ class Program
     }
 
     // Метод для обчислення суми виплачених заробітків
-    static double CalculateIssuedEarningsSum(Data[] data)
+    static double CalculateIssuedEarningsSum(RecordSet[] data)
     {
         double sum = 0;
         for (int i = 0; i < data.Length; i++)
@@ -118,7 +118,7 @@ class Program
         }
 
         // Створення масиву об'єктів класу "Відомість"
-        Data[] data = new Data[n];
+        RecordSet[] data = new RecordSet[n];
         Console.WriteLine();
         // Уведення вихідних даних з консолі і створення об'єктів
         for (int i = 0; i < n; i++)
@@ -131,7 +131,7 @@ class Program
 
             Console.WriteLine("-------------------------------");
 
-            data[i] = new Data(surname, salary);
+            data[i] = new RecordSet(surname, salary);
         }
 
         Console.WriteLine();
