@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 // Клас, що представляє відомість
-class RecordSet
+class Data
 {
     // Поля відомості
     private string surname;
@@ -11,7 +11,7 @@ class RecordSet
     private double issuedEarnings;
     public const double taxRate = 0.195;
     // Конструктор для встановлення початкових значень полів
-    public RecordSet(string name, double salary)
+    public Data(string name, double salary)
     {
         this.surname = name;
         this.salary = salary;
@@ -55,7 +55,7 @@ class RecordSet
 //// Головний клас програми
 class Program
 {
-    static double CalculateSalarySum(RecordSet[] data)
+    static double CalculateSalarySum(Data[] data)
     {
         double sum = 0;
         for (int i = 0; i < data.Length; i++)
@@ -66,7 +66,7 @@ class Program
     }
 
     // Метод для обчислення суми податків
-    static double CalculateTaxesSum(RecordSet[] data)
+    static double CalculateTaxesSum(Data[] data)
     {
         double sum = 0;
         for (int i = 0; i < data.Length; i++)
@@ -77,7 +77,7 @@ class Program
     }
 
     // Метод для обчислення суми виплачених заробітків
-    static double CalculateIssuedEarningsSum(RecordSet[] data)
+    static double CalculateIssuedEarningsSum(Data[] data)
     {
         double sum = 0;
         for (int i = 0; i < data.Length; i++)
@@ -98,7 +98,6 @@ class Program
         //       salary = 67890
         //       obj2: surname = Clymenko
         //       salary: 34567
-
         bool validInput = false;
         int n = 0;
 
@@ -118,7 +117,7 @@ class Program
         }
 
         // Створення масиву об'єктів класу "Відомість"
-        RecordSet[] data = new RecordSet[n];
+        Data[] data = new Data[n];
         Console.WriteLine();
         // Уведення вихідних даних з консолі і створення об'єктів
         for (int i = 0; i < n; i++)
@@ -131,7 +130,7 @@ class Program
 
             Console.WriteLine("-------------------------------");
 
-            data[i] = new RecordSet(surname, salary);
+            data[i] = new Data(surname, salary);
         }
 
         Console.WriteLine();
@@ -153,7 +152,6 @@ class Program
 
         Console.WriteLine("--------------------------------------------------");
         Console.WriteLine("Together: salary " + salarySum + "   taxes " + taxesSum + "   issued earnongs " + issuedEarnіngsSum);
-
         //test cases:
         //case1:          Salary     Taxes   Issued Earnings
         //1) Sidorova:     12345   2407,28   9937,72
