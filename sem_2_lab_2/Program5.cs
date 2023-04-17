@@ -41,6 +41,24 @@ class Program
 {
     public static void Main(string[] args)
     {
+        //test cases
+        //case 1: n1 = 2
+        //        n2 = 2
+        //        v1 = {1, -2}
+        //        v2 = {2, -3}
+        //        num = 1
+        //case 2: n1 = 3
+        //        n2 = 2
+        //        v1 = {1, 2, -5}
+        //        v2 = {2, -3}
+        //        num = 2
+        //case 2: n1 = 2
+        //        n2 = 2
+        //        v1 = {1, 0}
+        //        v2 = {0, -3}
+        //        num = 3
+
+
         int n1 = Convert.ToInt32(Console.ReadLine());
         int n2 = Convert.ToInt32(Console.ReadLine());
 
@@ -65,5 +83,9 @@ class Program
         {
 
         }
+        //test cases:
+        //case 1: -5
+        //case 2: -6
+        //case 2: 2
     }
 }
