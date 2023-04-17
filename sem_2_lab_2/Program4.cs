@@ -10,12 +10,12 @@ class SailingVessel : IVessel
 {
     public void PrepareToMovement()
     {
-
+        Console.WriteLine("Sailing Vessel prepares to movement");
     }
 
     public void Move()
     {
-
+        Console.WriteLine("Movement of the Sailing Vessel");
     }
 }
 
@@ -23,12 +23,12 @@ class Submarine : IVessel
 {
     public void PrepareToMovement()
     {
-
+        Console.WriteLine("Submarine prepares to movement");
     }
 
     public void Move()
     {
-
+        Console.WriteLine("Movement of the Submarine");
     }
 }
 
