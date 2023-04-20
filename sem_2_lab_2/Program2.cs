@@ -108,29 +108,28 @@ class Data
     // Метод для розрахунку загальної суми податків
     public double CalculateTotalTaxes()
     {
-        double totalTaxes = 0;
+        double sum = 0;
 
         // Обчислення загальної суми податків
         for (int i = 0; i < records.Length; i++)
         {
-            totalTaxes += records[i].GetTaxes();
+            sum += Math.Round(records[i].GetTaxes(), 2);
         }
 
-        return totalTaxes;
+        return Math.Round(sum, 2);
     }
 
     // Метод для розрахунку загальної суми виплачених заробітків
     public double CalculateTotalIssuedEarnings()
     {
-        double totalIssuedEarnings = 0;
+        double sum = 0;
 
         // Обчислення загальної суми виплачених заробітків
         for (int i = 0; i < records.Length; i++)
         {
-            totalIssuedEarnings += records[i].GetIssuedEarnings();
+            sum += Math.Round(records[i].GetIssuedEarnings(), 2);
         }
-
-        return totalIssuedEarnings;
+        return Math.Round(sum, 2);
     }
 }
 
@@ -148,9 +147,25 @@ class Program
         //       salary = 67890
         //       obj2: surname = Clymenko
         //       salary: 34567
-        Console.WriteLine("Enter the number of records:");
-        int n = Convert.ToInt32(Console.ReadLine());
 
+        int n = 0;
+        bool validInput = false;
+        //Перевірка
+        while (!validInput)
+        {
+            Console.WriteLine("Write a number of rows");
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out n))
+            {
+                validInput = true;
+            }
+            else
+            {
+                Console.WriteLine("It is not correct entering data. Please enter an integer number.");
+            }
+        }
+        validInput = false;
         Data data = new Data(n); // Створення об'єкту "Data" з введеними даними
 
         Console.WriteLine();
@@ -161,8 +176,23 @@ class Program
             Console.WriteLine("Enter a surname:");
             string surname = Console.ReadLine();
 
-            Console.WriteLine("Enter a salary:");
-            double salary = Convert.ToDouble(Console.ReadLine());
+            double salary = 0;
+
+            while (!validInput)
+            {
+                Console.WriteLine("Enter a salary:");
+                string input = Console.ReadLine();
+
+                if (double.TryParse(input, out salary))
+                {
+                    validInput = true;
+                }
+                else
+                {
+                    Console.WriteLine("It is not correct entering data. Please enter an integer number.");
+                }
+            }
+            validInput = false;
 
             Console.WriteLine("-------------------------------------------");
             data.CreateRecordData(i, surname, salary);
@@ -176,9 +206,8 @@ class Program
 
         // Розрахунок та виведення загальної суми зарплат, податків та виплачених заробітків
         Console.WriteLine("-------------------------------------------");
-        Console.WriteLine("Together: salary " + salarySum + "   taxes " + taxesSum + "   issued earnongs " + issuedEarnіngsSum);
+        Console.WriteLine("Total: salary " + salarySum + "   taxes " + taxesSum + "   issued earnongs " + issuedEarnіngsSum);
 
-        Console.ReadLine();
         //test cases:
         //case1:          Salary     Taxes   Issued Earnings
         //1) Sidorova:     12345   2407,28   9937,72
