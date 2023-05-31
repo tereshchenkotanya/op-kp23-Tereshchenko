@@ -117,6 +117,374 @@ public class Deque<Item> : IIterator<Item>
     public Item GetLastElement  { get { return _items.Last.Value; }}
     public bool GetIsFirstAccess { get { return _isFirstAccess; }}
 }
+
+class UnitTests
+{
+    private Deque<int> _deque ;
+    private bool _isTestSuccess;
+    public bool SizeTest()
+    {
+        _isTestSuccess = true;
+        _deque = new Deque<int>();
+
+        _deque.AddFirst(45);
+        int expected1 = 1;
+        int actual1 = _deque.Size();
+
+        _deque.AddFirst(32);
+        int expected2 = 2;
+        int actual2 = _deque.Size();
+
+        _deque.RemoveFirst();
+        _deque.RemoveFirst();
+        int expected3 = 0;
+        int actual3 = _deque.Size();
+
+        if (actual1 != expected1)
+        {
+            Console.WriteLine("SizeTest: case1 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual2 != expected2)
+        {
+            Console.WriteLine("SizeTest: case2 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual3 != expected3)
+        {
+            Console.WriteLine("SizeTest: case3 FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess == true)
+        {
+            Console.WriteLine("SizeTest: all cases Passed");
+        }
+
+        return _isTestSuccess;
+    }
+    public bool AddFirstTest()
+    {
+        _isTestSuccess = true;
+        _deque = new Deque<int>();
+
+        _deque.AddFirst(45);
+        int expected1 = 45;
+        int actual1 = _deque.GetFirstElement;
+
+        _deque.AddFirst(23);
+        int expected2 = 23;
+        int actual2 = _deque.GetFirstElement;
+
+        _deque.AddFirst(89);
+        int expected3 = 89;
+        int actual3 = _deque.GetFirstElement;
+
+        if (actual1 != expected1)
+        {
+            Console.WriteLine("AddFirstTest: case1 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual2 != expected2)
+        {
+            Console.WriteLine("AddFirstTest: case2 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual3 != expected3)
+        {
+            Console.WriteLine("AddFirstTest: case3 FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess == true)
+        {
+            Console.WriteLine("AddFirstTest: all cases Passed");
+        }
+
+        return _isTestSuccess;
+    }
+    public bool AddLastTest()
+    {
+        _deque = new Deque<int>();
+        _isTestSuccess = true;
+
+        _deque.AddLast(45);
+        int expected1 = 45;
+        int actual1 = _deque.GetLastElement;
+
+        _deque.AddLast(23);
+        int expected2 = 23;
+        int actual2 = _deque.GetLastElement;
+
+        _deque.AddLast(89);
+        int expected3 = 89;
+        int actual3 = _deque.GetLastElement;
+
+        if (actual1 != expected1)
+        {
+            Console.WriteLine("AddLastTest: case1 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual2 != expected2)
+        {
+            Console.WriteLine("AddLastTest: case2 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual3 != expected3)
+        {
+            Console.WriteLine("AddLastTest: case3 FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess == true)
+        {
+            Console.WriteLine("AddFirstTest: all cases Passed");
+        }
+        return _isTestSuccess;
+    }
+    public bool RemoveFirstTest()
+    {
+        _deque = new Deque<int>();
+        _isTestSuccess = true;
+
+        _deque.AddFirst(34);
+        _deque.AddFirst(12);
+        _deque.AddFirst(76);
+
+        int actual1 = _deque.RemoveFirst();
+        int expected1 = 76;
+
+        int actual2 = _deque.RemoveFirst();
+        int expected2 = 12;
+
+        int actual3 = _deque.RemoveFirst();
+        int expected3 = 34;
+
+        if (actual1 != expected1)
+        {
+            Console.WriteLine("RemoveFirstTest: case1 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual2 != expected2)
+        {
+            Console.WriteLine("RemoveFirstTest: case2 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual3 != expected3)
+        {
+            Console.WriteLine("RemoveFirstTest: case3 FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess == true)
+        {
+            Console.WriteLine("RemoveFirstTest: all cases Passed");
+        }
+        return _isTestSuccess;
+    }
+    public bool RemoveLastTest()
+    {
+        _deque = new Deque<int>();
+        _isTestSuccess = true;
+
+        _deque.AddLast(34);
+        _deque.AddLast(12);
+        _deque.AddLast(76);
+
+        int actual1 = _deque.RemoveLast();
+        int expected1 = 76;
+
+        int actual2 = _deque.RemoveLast();
+        int expected2 = 12;
+
+        int actual3 = _deque.RemoveLast();
+        int expected3 = 34;
+
+        if (actual1 != expected1)
+        {
+            Console.WriteLine("RemoveLastTest: case1 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual2 != expected2)
+        {
+            Console.WriteLine("RemoveLastTest: case2 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual3 != expected3)
+        {
+            Console.WriteLine("RemoveLastTest: case3 FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess == true)
+        {
+            Console.WriteLine("RemoveLastTest: all cases Passed");
+        }
+
+        return _isTestSuccess;
+    }
+    public bool IsEmptyTest()
+    {
+        _deque = new Deque<int>();
+        _isTestSuccess = true;
+
+        _deque.AddFirst(45);
+        bool actual1 = _deque.IsEmpty();
+        bool expected1 = false;
+
+        _deque.RemoveLast();
+        bool actual2 = _deque.IsEmpty();
+        bool expected2 = true;
+
+        _deque.AddFirst(67);
+        bool actual3 = _deque.IsEmpty();
+        bool expected3 = false;
+
+        if (actual1 != expected1)
+        {
+            Console.WriteLine("IsEmptyTest: case1 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual2 != expected2)
+        {
+            Console.WriteLine("IsEmptyTest: case2 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual3 != expected3)
+        {
+            Console.WriteLine("IsEmptyTest: case3 FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess == true)
+        {
+            Console.WriteLine("IsEmptyTest: all cases Passed");
+        }
+
+        return _isTestSuccess;
+    }
+    public bool HasNextTest()
+    {
+        // Arrange
+        _deque = new Deque<int>();
+        _isTestSuccess = true;
+
+        // Act
+        _deque.AddLast(45);
+        bool expected1 = true;
+        bool actual1 = _deque.Iterator().HasNext;
+
+        _deque.AddLast(23);
+        bool expected2 = true;
+        bool actual2 = _deque.Iterator().HasNext;
+
+        _deque.RemoveFirst();
+        bool expected3 = true;
+        bool actual3 = _deque.Iterator().HasNext;
+
+        _deque.RemoveLast();
+        bool expected4 = false;
+        bool actual4 = _deque.Iterator().HasNext;
+
+        // Assert
+        if (actual1 != expected1)
+        {
+            Console.WriteLine("HasNextTest: case1 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual2 != expected2)
+        {
+            Console.WriteLine("HasNextTest: case2 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual3 != expected3)
+        {
+            Console.WriteLine("HasNextTest: case3 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual4 != expected4)
+        {
+            Console.WriteLine("HasNextTest: case4 FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess)
+        {
+            Console.WriteLine("HasNextTest: all cases Passed");
+        }
+
+        return _isTestSuccess;
+    }
+    public bool MoveNextTest()
+    {
+        // Arrange
+        _deque = new Deque<int>();
+        _isTestSuccess = true;
+
+        // Act
+        _deque.AddLast(45);
+        _deque.AddLast(23);
+        _deque.AddLast(89);
+
+        IIterator<int> iterator = _deque.Iterator();
+
+        int expected1 = 45;
+        int actual1 = iterator.MoveNext();
+
+        int expected2 = 23;
+        int actual2 = iterator.MoveNext();
+
+        int expected3 = 89;
+        int actual3 = iterator.MoveNext();
+
+        // Assert
+        if (actual1 != expected1)
+        {
+            Console.WriteLine("MoveNextTest: case1 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual2 != expected2)
+        {
+            Console.WriteLine("MoveNextTest: case2 FAILED");
+            _isTestSuccess = false;
+        }
+        if (actual3 != expected3)
+        {
+            Console.WriteLine("MoveNextTest: case3 FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess)
+        {
+            Console.WriteLine("MoveNextTest: all cases Passed");
+        }
+
+        return _isTestSuccess;
+    }
+    public bool IteratorTest()
+    {
+        _deque = new Deque<int>();
+        _isTestSuccess = true;
+
+        IIterator<int> iterator = _deque.Iterator();
+
+        if (!_deque.GetIsFirstAccess || iterator is not Deque<int>)
+        {
+            Console.WriteLine("IteratorTest was FAILED");
+            _isTestSuccess = false;
+        }
+        else
+        {
+            Console.WriteLine("ITeratorTest was Passed");
+        }
+
+        return _isTestSuccess;
+    }
+    public void CheckDequeueMethods()
+    {
+        SizeTest();
+        AddFirstTest();
+        AddLastTest();
+        RemoveLastTest();
+        RemoveFirstTest();
+        IsEmptyTest();
+        HasNextTest();
+        MoveNextTest();
+        IteratorTest();
+    }
+}
 class Program
 {
     public static void PrintQueue(Deque<string> deque)
