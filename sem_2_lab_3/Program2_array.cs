@@ -171,7 +171,331 @@ public class RandomizedQueue<Item> : IIterator<Item>
         return _items[i]; 
     }
 }
+class UnitTests
+{
+    private RandomizedQueue<int> _randomQueue = new RandomizedQueue<int>();
+    private bool _isTestSuccess;
+    private bool RandomizedQueueTest()
+    {
+        _randomQueue = new RandomizedQueue<int>();
+        _isTestSuccess = true;
 
+        int[] expectedQueue = new int[5];
+        int[] actualQueue = _randomQueue.GetQueue;
+
+        int expectedEndIndex = -1;
+        int actualEndIndex = _randomQueue.GetEndIndex;
+
+        if (!Compared(actualQueue, expectedQueue))
+        {
+            Console.WriteLine("RandomizedQueueTest: case1 was FAILED");
+            _isTestSuccess = false;
+        }
+        if (actualEndIndex != expectedEndIndex)
+        {
+            Console.WriteLine("RandomizedQueueTest: case2 was FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess == true)
+        {
+            Console.WriteLine("RandomizedQueueTest: all cases were Passed");
+            _isTestSuccess = true;
+        }
+
+        return _isTestSuccess;
+    }
+    private bool IsEmptyTest()
+    {
+        _randomQueue = new RandomizedQueue<int>();
+        _isTestSuccess = true;
+
+        bool expected1 = true;
+        bool actual1 = _randomQueue.IsEmpty();
+
+        _randomQueue.Enqueue(20);
+        bool expected2 = false;
+        bool actual2 = _randomQueue.IsEmpty();
+
+        if (!(expected1 == actual1))
+        {
+            Console.WriteLine("IsEmptyTest: case1 was FAILED");
+            _isTestSuccess = false;
+        }
+        if (!(expected2 == actual2))
+        {
+            Console.WriteLine("IsEmptyTest: case2 was FAILED");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess)
+        {
+            Console.WriteLine("IsEmptyTest: all tests were Passed");
+            _isTestSuccess = false;
+        }
+
+        return _isTestSuccess;
+    }
+    private bool SizeTest()
+    {
+        _randomQueue = new RandomizedQueue<int>();
+        _isTestSuccess = true;
+
+        _randomQueue.Enqueue(1);
+        _randomQueue.Enqueue(2);
+
+        int expected1 = 2;
+        int actual1 = _randomQueue.Size();
+
+        _randomQueue.Enqueue(3);
+        int expected2 = 3;
+        int actual2 = _randomQueue.Size();
+
+        _randomQueue.Enqueue(3);
+        int expected3 = 4;
+        int actual3 = _randomQueue.Size();
+
+        if (!(expected1 == actual1))
+        {
+            Console.WriteLine("SizeTest: case1 Failed");
+            _isTestSuccess = false;
+        }
+        if (!(expected2 == actual2))
+        {
+            Console.WriteLine("SizeTest: case2 was Failed");
+            _isTestSuccess = false;
+        }
+        if (!(expected3 == actual3))
+        {
+            Console.WriteLine("SizeTest: case3 was Failed");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess)
+        {
+            Console.WriteLine("SizeTest: all tests were Passed");
+            _isTestSuccess = true;
+        }
+
+        return _isTestSuccess;
+    }
+    private bool EnqueueTest()
+    {
+        _randomQueue = new RandomizedQueue<int>();
+        _isTestSuccess = true;
+
+        _randomQueue.Enqueue(1);
+        _randomQueue.Enqueue(2);
+        _randomQueue.Enqueue(3);
+
+        int expectedSize = 3;
+        int actualSize = _randomQueue.Size();
+
+        int[] expectedQueue = new int[expectedSize];
+        for (int i = 0; i < expectedSize; i++)
+        {
+            expectedQueue[i] = i+1;
+        }
+        int[] actualQueue = _randomQueue.GetQueue;
+
+        if (actualSize != expectedSize)
+        {
+            Console.WriteLine("EnqueueTest: Size incorrect");
+            _isTestSuccess = false;
+        }
+        if (!Compared(expectedQueue, actualQueue))
+        {
+            Console.WriteLine("EnqueueTest: incorrect filling of the array");
+            _isTestSuccess = false;
+        }
+        if(_isTestSuccess == true)
+        {
+            Console.WriteLine("SizeTest: all test were Passed");
+            _isTestSuccess = true;
+        }
+
+
+        return _isTestSuccess;
+    }
+    private bool Compared(int[] array1, int[] array2)
+    {
+        bool isTestSuccess = true;
+        for (int i = 0; i < array1.Length; i++)
+        {
+            if (array1[i] != array2[i])
+            {
+                isTestSuccess = false;
+            }
+        }
+        return isTestSuccess;
+    }
+    private bool DequeueTest()
+    {
+        _randomQueue = new RandomizedQueue<int>();
+        _isTestSuccess = true;
+
+        _randomQueue.Enqueue(1);
+        _randomQueue.Enqueue(2);
+        _randomQueue.Enqueue(3);
+
+        int initialSize = _randomQueue.Size();
+        int dequeuedItem = _randomQueue.Dequeue();
+        int expectedSize = initialSize - 1;
+        int actualSize = _randomQueue.Size();
+
+        if (actualSize != expectedSize)
+        {
+            Console.WriteLine("DequeueTest: Size incorrect");
+            _isTestSuccess = false;
+        }
+        if (_randomQueue.GetQueue.Contains(dequeuedItem))
+        {
+            Console.WriteLine("DequeueTest: Dequeued item still present in the queue");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess == true)
+        {
+            Console.WriteLine("DequeueTest: all test were Passed");
+            _isTestSuccess = true;
+        }
+
+        return _isTestSuccess;
+    }
+    private bool SampleTest()
+    {
+        _randomQueue = new RandomizedQueue<int>();
+        _isTestSuccess = true;
+
+        _randomQueue.Enqueue(1);
+        _randomQueue.Enqueue(2);
+        _randomQueue.Enqueue(3);
+
+        int sample = _randomQueue.Sample();
+
+        if (!_randomQueue.GetQueue.Contains(sample))
+        {
+            Console.WriteLine("SampleTest: Sample item not present in the queue");
+            _isTestSuccess = false;
+        }
+        if (_isTestSuccess == true)
+        {
+            Console.WriteLine("SampleTest: all tests were Passed");
+            _isTestSuccess = true;
+        }
+
+        return _isTestSuccess;
+    } 
+    private bool Iterator()
+    {
+        _randomQueue = new RandomizedQueue<int>();
+        _isTestSuccess = true;
+
+        IIterator<int> iterator = _randomQueue.Iterator();
+        int iteratorIndex = _randomQueue.GetIteratorIndex;
+
+        if (iteratorIndex != 0 || iterator is not RandomizedQueue<int>)
+        {
+            Console.WriteLine("IteratorTest was FAILED");
+            _isTestSuccess = false;
+        }
+        else
+        {
+            Console.WriteLine("ITeratorTest: all tests were Passed");
+        }
+
+        return _isTestSuccess;
+    }
+    private bool HasNextTest()
+    {
+        _randomQueue = new RandomizedQueue<int>();
+        _randomQueue.Enqueue(10);
+        _randomQueue.Enqueue(20);
+
+        IIterator<int> iterator = _randomQueue.Iterator();
+        _isTestSuccess = true;
+
+        if (!iterator.HasNext)
+        {
+            Console.WriteLine("HasNextTest: initially false");
+            _isTestSuccess = false;
+        }
+
+        iterator.MoveNext();
+        if (!iterator.HasNext)
+        {
+            Console.WriteLine("HasNextTest: after consuming one item");
+            _isTestSuccess = false;
+        }
+
+        iterator.MoveNext();
+        if (iterator.HasNext)
+        {
+            Console.WriteLine("HasNextTest: after consuming all items");
+            _isTestSuccess = false;
+        }
+
+        if (_isTestSuccess)
+        {
+            Console.WriteLine("HasNextTest: all tests were Passed");
+            _isTestSuccess = true;
+        }
+
+        return _isTestSuccess;
+    }
+    private bool MoveNextTest()
+    {
+        _randomQueue = new RandomizedQueue<int>();
+        _randomQueue.Enqueue(10);
+        _randomQueue.Enqueue(20);
+        _randomQueue.Enqueue(30);
+
+        IIterator<int> iterator = _randomQueue.Iterator();
+        _isTestSuccess = true;
+
+        int expected1 = _randomQueue.GetElement(0);
+        int actual1 = iterator.MoveNext();
+        if (actual1 != expected1)
+        {
+            Console.WriteLine("MoveNextTest: case1 FAILED");
+            _isTestSuccess = false;
+        }
+
+        int expected2 = _randomQueue.GetElement(1);
+        int actual2 = iterator.MoveNext();
+        if (actual2 != expected2)
+        {
+            Console.WriteLine("MoveNextTest: case2 FAILED");
+            _isTestSuccess = false;
+        }
+
+        int expected3 = _randomQueue.GetElement(2); ;
+        int actual3 = iterator.MoveNext();
+        if (actual3 != expected3)
+        {
+            Console.WriteLine("MoveNextTest: case3 FAILED");
+            _isTestSuccess = false;
+        }
+
+        if (_isTestSuccess)
+        {
+            Console.WriteLine("MoveNextTest: all tests were Passed");
+            _isTestSuccess = true;
+        }
+
+        return _isTestSuccess;
+    }
+   
+    public void CheckQueueMethods()
+    {
+        RandomizedQueueTest();
+        IsEmptyTest();
+        SizeTest();
+        EnqueueTest();
+        DequeueTest();
+        SampleTest();
+        Iterator();
+        HasNextTest();
+        MoveNextTest();
+    }
+    
+}
 class Program
 {
     public static void PrintQueue(RandomizedQueue<string> deque)
