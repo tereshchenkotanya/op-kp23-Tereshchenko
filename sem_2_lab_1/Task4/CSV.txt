@@ -1,0 +1,10 @@
+John, Smith, 85
+Emily, Davis, 92
+Sarah, Johnson ,77
+Michael, Brown, 65
+Jessica, Wilson, 88
+David, Garcia, 91
+Melissa, Anderson, 30
+James, Taylor,74
+Elizabeth, Hernandez, 90
+Daniel, Martinez, 86
