@@ -1,0 +1,16 @@
+1$Smith$John$12.03.2008$0955640685$john.smith@gmail.com$1
+2$Johnson$Emily$28.09.2008$0976541237$emily.johnson@gmail.com
+3$Davis$Michael$15.06.2006$0963214589$michael.davis@gmail.com$2
+4$Anderson$Sarah$04.11.2011$0997845612$sarah.anderson@gmail.com
+5$Brown$Christopher$20.02.2010$0984523647$christopher.brown@gmail.com$3
+6$Wilson$Jessica$10.07.2009$0950321478$jessica.wilson@gmail.com$3
+7$Martinez$David$30.12.2000$0931478526$david.martinez@gmail.com
+8$Taylor$Stephanie$18.04.2011$0963214785$stephanie.taylor@gmail.com$1
+9$Moore$Ryan$25.08.2009$0956478123$ryan.moore@gmail.com
+10$Jackson$Amanda$08.01.2007$0979856412$amanda.jackson@gmail.com$2
+11$Josten$Neil$31.03.2000$0955640685$neil.josten.minyard@gmail.com$2
+12$Minyard$Andrew$11.10.1999$0662230825$drew.minyard@gmail.com
+13$Gordon$Seth$01.01.2004$0956666666$died.seth@gmail.com$1
+14$Day$Kevin$09.10.2000$0993472054$queen.drama@gmail.com
+15$Raynolds$Allisson$09.06.2000$0993892054$allie.ly@gmail.com
+16$Walker$Renee$12.12.2004$0663456677$walker.renee@gmail.com
