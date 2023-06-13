@@ -4,17 +4,17 @@ using System.Collections.Specialized;
 using System.Drawing;
 using System.IO;
 
-public class HashTable<KItem>
+public class HashTable<KItem, VItem>
 {
-    private LinkedList<KItem>[] buckets;
+    private readonly LinkedList<KeyValuePair<KItem, VItem>>[] buckets;
     private readonly int capacity;
     private int count;
     private readonly string dictionaryFile;
 
     public HashTable()
     {
-        capacity = 16; // Default initial capacity
-        buckets = new LinkedList<KItem>[capacity];
+        capacity = 1023;
+        buckets = new LinkedList<KeyValuePair<KItem, VItem>>[capacity];
         count = 0;
         dictionaryFile = "Words.txt";
 
@@ -24,57 +24,93 @@ public class HashTable<KItem>
     public HashTable(int initialCapacity)
     {
         capacity = initialCapacity;
-        buckets = new LinkedList<KItem>[capacity];
+        buckets = new LinkedList<KeyValuePair<KItem, VItem>>[capacity];
         count = 0;
         dictionaryFile = "Words.txt";
 
         ReadDictionaryFromFile();
     }
 
-    public void Add(KItem? key)
+    private int GetBucketIndex(KItem? key)
     {
-        int bucketIndex = Math.Abs(key.GetHashCode() % capacity);
+        int hashCode = key.GetHashCode();
+        return (hashCode & 0x7FFFFFFF) % capacity;
+    }
+    
+    public void Add(KItem? key, VItem? value)
+    {
+        int bucketIndex = GetBucketIndex(key);
 
         if (buckets[bucketIndex] == null)
         {
-            buckets[bucketIndex] = new LinkedList<KItem>();
+            buckets[bucketIndex] = new LinkedList<KeyValuePair<KItem, VItem>>();
         }
 
-        LinkedList<KItem> bucket = buckets[bucketIndex];
-        if (!bucket.Contains(key))
+        LinkedList<KeyValuePair<KItem, VItem>> bucket = buckets[bucketIndex];
+        foreach (KeyValuePair<KItem, VItem> pair in bucket)
         {
-            bucket.AddLast(key);
-            count++;
-
-            UpdateDictionaryFile();
+            if (pair.Key.Equals(key))
+            {
+                KeyValuePair<KItem, VItem> updatedPair = new KeyValuePair<KItem, VItem>(key, value);
+                bucket.Remove(pair);
+                bucket.AddLast(updatedPair);
+                UpdateDictionaryFile();
+                return;
+            }
         }
+
+        bucket.AddLast(new KeyValuePair<KItem, VItem>(key, value));
+        count++;
+
+        UpdateDictionaryFile();
     }
 
-    public void Remove(KItem key)
+    public void Remove(KItem? key)
     {
-        int bucketIndex = Math.Abs(key.GetHashCode() % capacity);
-        LinkedList<KItem> bucket = buckets[bucketIndex];
+        int bucketIndex = GetBucketIndex(key);
+        LinkedList<KeyValuePair<KItem, VItem>> bucket = buckets[bucketIndex];
+
         if (bucket != null)
         {
-            if (bucket.Remove(key))
+            LinkedListNode<KeyValuePair<KItem, VItem>> current = bucket.First;
+            while (current != null)
             {
-                count--;
+                if (current.Value.Key.Equals(key))
+                {
+                    bucket.Remove(current);
+                    count--;
 
-                UpdateDictionaryFile();
+                    UpdateDictionaryFile();
+                    return;
+                }
+
+                current = current.Next;
             }
         }
     }
 
+
     public bool Contains(KItem? key)
     {
-        int bucketIndex = Math.Abs(key.GetHashCode() % capacity);
-        LinkedList<KItem> bucket = buckets[bucketIndex];
-        return bucket != null && bucket.Contains(key);
+        int bucketIndex = GetBucketIndex(key);
+        LinkedList<KeyValuePair<KItem, VItem>> bucket = buckets[bucketIndex];
+        if (bucket != null)
+        {
+            foreach (KeyValuePair<KItem, VItem> pair in bucket)
+            {
+                if (pair.Key.Equals(key))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public void Clear()
     {
-        buckets = new LinkedList<KItem>[capacity];
+        Array.Clear(buckets, 0, buckets.Length);
         count = 0;
 
         UpdateDictionaryFile();
@@ -91,21 +127,21 @@ public class HashTable<KItem>
         foreach (string line in lines)
         {
             KItem key = (KItem)Convert.ChangeType(line, typeof(KItem));
-            Add(key);
+            Add(key, default(VItem));
         }
     }
 
     private void UpdateDictionaryFile()
     {
-        List<string>? lines = new List<string>();
+        List<string> lines = new List<string>();
 
-        foreach (LinkedList<KItem> bucket in buckets)
+        foreach (LinkedList<KeyValuePair<KItem, VItem>> bucket in buckets)
         {
             if (bucket != null)
             {
-                foreach (KItem key in bucket)
+                foreach (KeyValuePair<KItem, VItem> pair in bucket)
                 {
-                    lines.Add(key.ToString());
+                    lines.Add(pair.Key.ToString());
                 }
             }
         }
@@ -118,7 +154,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        HashTable<string>? dictionary = new();
+        HashTable<string, string> dictionary = new HashTable<string, string>();
 
         int selectedOption = 0;
 
@@ -127,7 +163,8 @@ class Program
             "Add new word",
             "Delete word",
             "Check if word exist",
-            "Delete all words"
+            "Delete all words",
+            "Show size"
         };
 
         bool exitOptionMenu = false;
@@ -178,7 +215,7 @@ class Program
             }
         }
     }
-    private static void HandleOption(int selectedOption, HashTable<string> dictionary)
+    private static void HandleOption(int selectedOption, HashTable<string, string> dictionary)
     {
         string? word;
         switch (selectedOption)
@@ -186,8 +223,8 @@ class Program
             case 0:
                 Console.Clear();
                 Console.Write("Write word you want to add: ");
-                word = Console.ReadLine(); 
-                dictionary.Add(word);
+                word = Console.ReadLine();
+                dictionary.Add(word, word);
 
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -200,7 +237,7 @@ class Program
                 Console.Write("Write word you want to remove: ");
                 word = Console.ReadLine();
 
-                if(dictionary.Contains(word))
+                if (dictionary.Contains(word))
                 {
                     dictionary.Remove(word);
                     Console.WriteLine();
@@ -215,6 +252,7 @@ class Program
                     Console.WriteLine("Word does not exist");
                     Console.ResetColor();
                 }
+
                 Escape();
                 break;
             case 2:
@@ -222,7 +260,7 @@ class Program
                 Console.Write("Write word you want to check: ");
                 word = Console.ReadLine();
 
-                if(dictionary.Contains(word))
+                if (dictionary.Contains(word))
                 {
                     Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -236,6 +274,7 @@ class Program
                     Console.WriteLine("Word does not exist");
                     Console.ResetColor();
                 }
+
                 Escape();
                 break;
             case 3:
@@ -247,6 +286,11 @@ class Program
                 Escape();
                 break;
             case 4:
+                Console.Clear();
+                Console.WriteLine("The size of dictionary is: " + dictionary.Size());
+                Escape();
+                break;
+            case 5:
                 Environment.Exit(0);
                 break;
             default:
